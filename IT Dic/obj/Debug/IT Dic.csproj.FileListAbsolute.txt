@@ -1,0 +1,17 @@
+D:\IT Dic\IT Dic\bin\Debug\IT Dic.exe.config
+D:\IT Dic\IT Dic\bin\Debug\IT Dic.exe
+D:\IT Dic\IT Dic\bin\Debug\IT Dic.pdb
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.csproj.AssemblyReference.cache
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.csproj.SuggestedBindingRedirects.cache
+D:\IT Dic\IT Dic\obj\Debug\IT_Dic.Properties.Resources.resources
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.csproj.GenerateResource.cache
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.csproj.CoreCompileInputs.cache
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.exe
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.pdb
+D:\IT Dic\IT Dic\bin\Debug\Gma.System.MouseKeyHook.dll
+D:\IT Dic\IT Dic\bin\Debug\Guna.UI2.dll
+D:\IT Dic\IT Dic\obj\Debug\IT Dic.csproj.CopyComplete
+D:\IT Dic\IT Dic\obj\Debug\IT_Dic.ListItem.resources
+D:\IT Dic\IT Dic\obj\Debug\IT_Dic.Main.resources
+D:\IT Dic\IT Dic\obj\Debug\IT_Dic.Notification.resources
+D:\IT Dic\IT Dic\obj\Debug\IT_Dic.Setting.resources
