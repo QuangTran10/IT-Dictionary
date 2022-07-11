@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -37,6 +38,7 @@ namespace IT_Dic
             Control = 2,
             Shift = 4
         }
+        private int isOpen;
         public Main()
         {
             InitializeComponent();
@@ -51,7 +53,7 @@ namespace IT_Dic
             manage = new ManageDictionary();
 
             conn = ConnectDB.Connect();
-            conn.Open();
+
         }
         private void Subscribe()
         {
@@ -69,7 +71,9 @@ namespace IT_Dic
 
         private void resetConnection()
         {
+            conn.Close();
             conn = ConnectDB.Connect();
+            isOpen = 0;
         } 
         
         private void showResult()
@@ -77,6 +81,7 @@ namespace IT_Dic
             string content = this.txtSearch.Text.Trim();
             if (content.Equals(""))
             {
+                MessageBox.Show("Không tìm thấy từ khoá");
                 return;
             }
             else
@@ -91,8 +96,9 @@ namespace IT_Dic
             ArrayList re = new ArrayList();
             try
             {
-                conn.Close();
+                //If the connection isn't open, it will open and set value of isOpen parameter to 1
                 conn.Open();
+                
                 re = manage.findWord(conn, content);
 
                 if (re.Count == 0)
@@ -112,11 +118,20 @@ namespace IT_Dic
                     noti.Show();
                 }
             }
-            catch (Exception e)
+            catch (MySqlException)
             {
-                MessageBox.Show("Kết nối thất bại"+ e.Message);
+                MessageBox.Show("MySQL chưa được khởi động hoặc tên CSDL bị sai\r\nVui lòng kiểm tra lại");
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Không kết nối được với cơ sở dữ liệu");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kết nối thất bại\r\n"+ ex.Message);
             }
             conn.Close();
+            isOpen = 0;
         }
 
         private void registerHotKey()
@@ -186,8 +201,12 @@ namespace IT_Dic
             try
             {
                 ArrayList re = new ArrayList();
-                conn.Close();
-                conn.Open();
+                //If the connection isn't open, it will open and set value of isOpen parameter to 1
+                if (isOpen == 0)
+                {
+                    conn.Open();
+                    isOpen = 1;
+                }
                 re = manage.findWord(conn, content);
 
                 if (re.Count == 0)
@@ -205,11 +224,20 @@ namespace IT_Dic
                     noti.Show();
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
-                MessageBox.Show("Kết nối thất bại");
+                MessageBox.Show("MySQL chưa được khởi động hoặc tên CSDL bị sai\r\nVui lòng kiểm tra lại");
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Không kết nối được với cơ sở dữ liệu");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kết nối thất bại\r\n" + ex.Message);
             }
             conn.Close();
+            isOpen = 0;
         }
 
         private void btnSetting_Click(object sender, EventArgs e)

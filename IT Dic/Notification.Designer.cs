@@ -34,7 +34,6 @@
             this.lblKey = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2.SuspendLayout();
@@ -48,7 +47,6 @@
             this.panel2.Controls.Add(this.lblKey);
             this.panel2.Controls.Add(this.btnMinimize);
             this.panel2.Controls.Add(this.btnExit);
-            this.panel2.Controls.Add(this.btnClose);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(584, 45);
@@ -85,9 +83,9 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnMinimize.Image = global::IT_Dic.Properties.Resources.minimize;
-            this.btnMinimize.Location = new System.Drawing.Point(483, -1);
+            this.btnMinimize.Location = new System.Drawing.Point(493, 0);
             this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(51, 44);
+            this.btnMinimize.Size = new System.Drawing.Size(46, 44);
             this.btnMinimize.TabIndex = 1;
             this.btnMinimize.UseVisualStyleBackColor = false;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
@@ -104,18 +102,6 @@
             this.btnExit.TabIndex = 2;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnClose.Image = global::IT_Dic.Properties.Resources.close;
-            this.btnClose.Location = new System.Drawing.Point(500, 0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(44, 44);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -163,7 +149,6 @@
         private System.Windows.Forms.Label lblKey;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }

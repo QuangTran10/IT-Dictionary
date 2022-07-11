@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -62,15 +63,16 @@ namespace IT_Dic
 
                     japanese_trans = japanese_trans.Replace(keywords, replacekey);
                     japan_hiragana = japan_hiragana.Replace(keywords, replacekey);
-                    vietnamese = vietnamese.Replace(keywords, replacekey);
-                    english = english.Replace(keywords, replacekey);
+                    vietnamese = Regex.Replace(vietnamese, keywords, replacekey, RegexOptions.IgnoreCase);
+                    english = Regex.Replace(english, keywords, replacekey, RegexOptions.IgnoreCase);
                     if (example == "")
                     {
                         example = "";
                     }
                     else
                     {
-                        example = "<br><b>Ví dụ:</b><br>" + example.Replace(keywords, replacekey).Replace("\n", "<br>");
+                        example = example.Replace("\n", "<br>");
+                        example = "<br><b>Ví dụ:</b><br>" + Regex.Replace(example, keywords, replacekey, RegexOptions.IgnoreCase); ;
                     }
                 }
                 else

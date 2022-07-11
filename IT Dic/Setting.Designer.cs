@@ -223,7 +223,7 @@
             // 
             this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(177)))), ((int)(((byte)(255)))));
             this.btnAdd.Image = global::IT_Dic.Properties.Resources.save_black;
-            this.btnAdd.Location = new System.Drawing.Point(304, 259);
+            this.btnAdd.Location = new System.Drawing.Point(294, 283);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(89, 43);
             this.btnAdd.TabIndex = 11;
@@ -234,9 +234,9 @@
             // 
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtKey);
-            this.groupBox1.Location = new System.Drawing.Point(115, 56);
+            this.groupBox1.Location = new System.Drawing.Point(93, 56);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(471, 180);
+            this.groupBox1.Size = new System.Drawing.Size(493, 197);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -245,16 +245,17 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(62, 117);
+            this.label7.Location = new System.Drawing.Point(35, 87);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(356, 20);
+            this.label7.Size = new System.Drawing.Size(411, 80);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Lưu ý: Muốn sử dụng phím Ctrl vui lòng gõ Control";
+            this.label7.Text = "Lưu ý: \r\n- Muốn sử dụng phím Ctrl vui lòng gõ Control.\r\n- Phím tắt hợp lệ là các " +
+    "phím được ngăn cách bằng dấu + \r\nvà không có khoảng trắng";
             // 
             // txtKey
             // 
             this.txtKey.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKey.Location = new System.Drawing.Point(32, 43);
+            this.txtKey.Location = new System.Drawing.Point(39, 34);
             this.txtKey.Name = "txtKey";
             this.txtKey.Size = new System.Drawing.Size(414, 29);
             this.txtKey.TabIndex = 0;

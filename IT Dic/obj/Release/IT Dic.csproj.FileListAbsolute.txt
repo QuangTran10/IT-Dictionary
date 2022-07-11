@@ -1,0 +1,18 @@
+D:\IT Dic\IT Dic\bin\Release\IT Dic.exe.config
+D:\IT Dic\IT Dic\bin\Release\IT Dic.exe
+D:\IT Dic\IT Dic\bin\Release\IT Dic.pdb
+D:\IT Dic\IT Dic\bin\Release\Gma.System.MouseKeyHook.dll
+D:\IT Dic\IT Dic\bin\Release\Guna.UI2.dll
+D:\IT Dic\IT Dic\bin\Release\MySql.Data.dll
+D:\IT Dic\IT Dic\obj\Release\IT Dic.csproj.AssemblyReference.cache
+D:\IT Dic\IT Dic\obj\Release\IT Dic.csproj.SuggestedBindingRedirects.cache
+D:\IT Dic\IT Dic\obj\Release\IT_Dic.ListItem.resources
+D:\IT Dic\IT Dic\obj\Release\IT_Dic.Main.resources
+D:\IT Dic\IT Dic\obj\Release\IT_Dic.Notification.resources
+D:\IT Dic\IT Dic\obj\Release\IT_Dic.Properties.Resources.resources
+D:\IT Dic\IT Dic\obj\Release\IT_Dic.Setting.resources
+D:\IT Dic\IT Dic\obj\Release\IT Dic.csproj.GenerateResource.cache
+D:\IT Dic\IT Dic\obj\Release\IT Dic.csproj.CoreCompileInputs.cache
+D:\IT Dic\IT Dic\obj\Release\IT Dic.csproj.CopyComplete
+D:\IT Dic\IT Dic\obj\Release\IT Dic.exe
+D:\IT Dic\IT Dic\obj\Release\IT Dic.pdb

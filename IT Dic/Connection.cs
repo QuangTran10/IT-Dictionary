@@ -12,7 +12,7 @@ namespace IT_Dic
         public static MySqlConnection getDBConnection(string host, int port, string database, string username, string password)
         {
             String connString = "Server=" + host + ";Database=" + database
-                + ";Port=" + port + ";User Id=" + username + ";Password=" + password + ";charset=utf8;";
+                + ";Port=" + port + ";User Id=" + username + ";Password=" + password + ";charset=utf8;SSL Mode=None";
             MySqlConnection conn = new MySqlConnection(connString);
             return conn;
         }

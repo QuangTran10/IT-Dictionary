@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gma.System.MouseKeyHook;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -130,9 +131,20 @@ namespace IT_Dic
             {
                 key = txtKey.Text.Trim();
                 key = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(key.ToLower());
+                key = key.Replace(" ", "");
             }
 
             string noidung = key;
+            try
+            {
+                var testhotkey = Combination.FromString(key);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show(key + " bị lỗi \r\n Vui lòng nhập phím tắt hợp lệ");
+                return;
+            }
+
 
             File.WriteAllText("hotkey.txt", noidung);
             loadHotKey();

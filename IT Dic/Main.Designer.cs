@@ -163,7 +163,7 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnMinimize.Image = global::IT_Dic.Properties.Resources.minimize;
-            this.btnMinimize.Location = new System.Drawing.Point(789, 0);
+            this.btnMinimize.Location = new System.Drawing.Point(788, 0);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(51, 44);
             this.btnMinimize.TabIndex = 1;
