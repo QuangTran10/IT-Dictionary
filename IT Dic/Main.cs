@@ -3,11 +3,9 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -30,55 +28,63 @@ namespace IT_Dic
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-        enum KeyModifier
-        {
-            None = 0,
-            Alt = 1,
-            Control = 2,
-            Shift = 4
-        }
-        private int isOpen;
+        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
+
+        private string textCopy = "";
+
         public Main()
         {
             InitializeComponent();
-            
+
+            SubscribeGlobal();
+
             this.FormBorderStyle = FormBorderStyle.None;
             this.Padding = new Padding(borderSize);
             this.panel2.BackColor = borderColor;
             this.BackColor = borderColor;
-
-            this.Subscribe();
  
             manage = new ManageDictionary();
 
             conn = ConnectDB.Connect();
 
         }
-        private void Subscribe()
+        private void SubscribeGlobal()
         {
-            globalMouseHook = Hook.GlobalEvents();
+            Unsubscribe();
+            Subscribe(Hook.GlobalEvents());
+        }
+        private void Subscribe(IKeyboardMouseEvents events)
+        {
+            globalMouseHook = events;
 
-            globalMouseHook.MouseDragFinished += MouseDragFinished;
+            globalMouseHook.MouseDragStarted += MouseDragStarted;
+
+            globalMouseHook.MouseDragFinishedExt += MouseDragFinished;
         }
 
         private void Unsubscribe()
         {
-            globalMouseHook.MouseDragFinished -= MouseDragFinished;
+            if (globalMouseHook == null) return;
+
+            globalMouseHook.MouseDragStarted -= MouseDragStarted;
+            globalMouseHook.MouseDragFinishedExt -= MouseDragFinished;
 
             globalMouseHook.Dispose();
+            globalMouseHook = null;
         }
 
         private void resetConnection()
         {
             conn.Close();
             conn = ConnectDB.Connect();
-            isOpen = 0;
-        } 
-        
+        }
         private void showResult()
         {
-            string content = this.txtSearch.Text.Trim();
+            string content = textCopy.Trim();
+            Debug.Print("Call hot key completed");
+
             if (content.Equals(""))
             {
                 MessageBox.Show("Không tìm thấy từ khoá");
@@ -88,17 +94,17 @@ namespace IT_Dic
             {
                 this.displayNotification(content);
             }
-            
         }
 
         private void displayNotification(string content)
         {
-            ArrayList re = new ArrayList();
             try
             {
                 //If the connection isn't open, it will open and set value of isOpen parameter to 1
+                conn.Close();
                 conn.Open();
-                
+                ArrayList re = new ArrayList();
+
                 re = manage.findWord(conn, content);
 
                 if (re.Count == 0)
@@ -131,13 +137,11 @@ namespace IT_Dic
                 MessageBox.Show("Kết nối thất bại\r\n"+ ex.Message);
             }
             conn.Close();
-            isOpen = 0;
         }
 
         private void registerHotKey()
         {
-            this.Unsubscribe();
-            this.Subscribe();
+            SubscribeGlobal();
             string[] hot;
             string key="Shift+F";
             if (File.Exists("hotkey.txt"))
@@ -172,7 +176,8 @@ namespace IT_Dic
         }
         private void btnMinimize_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
+            SubscribeGlobal();
         }
         private void Main_Resize(object sender, EventArgs e)
         {
@@ -202,11 +207,8 @@ namespace IT_Dic
             {
                 ArrayList re = new ArrayList();
                 //If the connection isn't open, it will open and set value of isOpen parameter to 1
-                if (isOpen == 0)
-                {
-                    conn.Open();
-                    isOpen = 1;
-                }
+                conn.Close();
+                conn.Open();
                 re = manage.findWord(conn, content);
 
                 if (re.Count == 0)
@@ -237,7 +239,6 @@ namespace IT_Dic
                 MessageBox.Show("Kết nối thất bại\r\n" + ex.Message);
             }
             conn.Close();
-            isOpen = 0;
         }
 
         private void btnSetting_Click(object sender, EventArgs e)
@@ -259,10 +260,17 @@ namespace IT_Dic
 
         private void Main_Load(object sender, EventArgs e)
         {
+            SubscribeGlobal();
             registerHotKey();
         }
+        private void MouseDragStarted(object sender, MouseEventArgs e)
+        {
+            //Log("MouseDragStarted\n");
+        }
 
-        private async void MouseDragFinished(object sender, System.Windows.Forms.MouseEventArgs e)
+
+        [STAThread]
+        private async void MouseDragFinished(object sender, MouseEventExtArgs e)
         {
             IDataObject tmpClipboard = Clipboard.GetDataObject();
 
@@ -270,19 +278,23 @@ namespace IT_Dic
 
             await Task.Delay(50);
 
-            SendKeys.SendWait("^c");
+            SendKeys.Send("^c");
 
             await Task.Delay(50);
 
             if (Clipboard.ContainsText())
             {
-                string text = Clipboard.GetText();
-                this.txtSearch.Text = text;
+                textCopy = Clipboard.GetText(TextDataFormat.UnicodeText);
+                Thread.Sleep(50);
+                txtSearch.Text = textCopy;
+                Debug.Print("Text: " + textCopy);
+                e.Handled = true;
             }
             else
             {
                 Clipboard.SetDataObject(tmpClipboard);
             }
+            
         }
 
         private void hiệnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -290,6 +302,7 @@ namespace IT_Dic
             this.Show();
             notify.Visible = false;
             WindowState = FormWindowState.Normal;
+            SubscribeGlobal();
         }
 
         private void tắtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -319,5 +332,6 @@ namespace IT_Dic
         {
             this.Unsubscribe();
         }
+
     }
 }

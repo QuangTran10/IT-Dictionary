@@ -43,10 +43,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.panel2.Controls.Add(this.btnExit);
+            this.panel2.Controls.Add(this.btnMinimize);
             this.panel2.Controls.Add(this.btnCopy);
             this.panel2.Controls.Add(this.lblKey);
-            this.panel2.Controls.Add(this.btnMinimize);
-            this.panel2.Controls.Add(this.btnExit);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(584, 45);
@@ -96,9 +96,9 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnExit.Image = global::IT_Dic.Properties.Resources.close;
-            this.btnExit.Location = new System.Drawing.Point(540, -1);
+            this.btnExit.Location = new System.Drawing.Point(540, 0);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(44, 44);
+            this.btnExit.Size = new System.Drawing.Size(44, 43);
             this.btnExit.TabIndex = 2;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);

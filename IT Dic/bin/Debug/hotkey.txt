@@ -1,1 +1,1 @@
-Shift+C+V
+Control+C+V
