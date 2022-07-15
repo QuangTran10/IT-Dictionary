@@ -1,5 +1,6 @@
 ﻿using Gma.System.MouseKeyHook;
 using MySql.Data.MySqlClient;
+using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace IT_Dic
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
-        private string textCopy = "";
+        private string textCopy;
 
         public Main()
         {
@@ -98,6 +99,7 @@ namespace IT_Dic
 
         private void displayNotification(string content)
         {
+            Logger logger = LogManager.GetLogger("fileLogger");
             try
             {
                 //If the connection isn't open, it will open and set value of isOpen parameter to 1
@@ -124,9 +126,10 @@ namespace IT_Dic
                     noti.Show();
                 }
             }
-            catch (MySqlException)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("MySQL chưa được khởi động hoặc tên CSDL bị sai\r\nVui lòng kiểm tra lại");
+                MessageBox.Show("MySQL chưa được khởi động hoặc tên CSDL bị sai\r\nVui lòng kiểm tra lại"+ ex.StackTrace);
+                logger.Error(ex, ex.Message);
             }
             catch (SocketException)
             {
@@ -135,6 +138,7 @@ namespace IT_Dic
             catch (Exception ex)
             {
                 MessageBox.Show("Kết nối thất bại\r\n"+ ex.Message);
+                logger.Error(ex, ex.Message);
             }
             conn.Close();
         }
@@ -200,6 +204,7 @@ namespace IT_Dic
 
         private void btnFind_Click(object sender, EventArgs e)
         {
+            Logger logger = LogManager.GetLogger("fileLogger");
             string content = txtSearch.Text.Trim();
             if (content.Equals(""))
                 return;
@@ -226,9 +231,10 @@ namespace IT_Dic
                     noti.Show();
                 }
             }
-            catch (MySqlException)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("MySQL chưa được khởi động hoặc tên CSDL bị sai\r\nVui lòng kiểm tra lại");
+                logger.Error(ex, ex.Message);
             }
             catch (SocketException)
             {
@@ -272,29 +278,35 @@ namespace IT_Dic
         [STAThread]
         private async void MouseDragFinished(object sender, MouseEventExtArgs e)
         {
-            IDataObject tmpClipboard = Clipboard.GetDataObject();
+            Logger logger = LogManager.GetLogger("fileLogger");
 
-            Clipboard.Clear();
-
-            await Task.Delay(50);
-
-            SendKeys.Send("^c");
-
-            await Task.Delay(50);
-
-            if (Clipboard.ContainsText())
+            CancellationToken token = new CancellationToken();
+            try
             {
+                await Task.Delay(50);
+
+                SendKeys.SendWait("^c");
+
+                SendKeys.Flush();
+
+                await Task.Delay(50);
+
                 textCopy = Clipboard.GetText(TextDataFormat.UnicodeText);
+
                 Thread.Sleep(50);
+
                 txtSearch.Text = textCopy;
-                Debug.Print("Text: " + textCopy);
-                e.Handled = true;
+
             }
-            else
+            catch (Exception ex)
             {
-                Clipboard.SetDataObject(tmpClipboard);
+                MessageBox.Show(ex.Message);
+                logger.Error(ex, ex.Message);
             }
-            
+
+            //If you want to select the text and display the results at the same time, please uncomment
+            //showResult();
+
         }
 
         private void hiệnToolStripMenuItem_Click(object sender, EventArgs e)

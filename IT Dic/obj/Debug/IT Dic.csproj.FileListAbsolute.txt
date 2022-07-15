@@ -37,3 +37,6 @@ D:\IT Dic\IT Dic\bin\Debug\System.Buffers.xml
 D:\IT Dic\IT Dic\bin\Debug\System.Memory.xml
 D:\IT Dic\IT Dic\bin\Debug\System.Numerics.Vectors.xml
 D:\IT Dic\IT Dic\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\IT Dic\IT Dic\bin\Debug\NLog.config
+D:\IT Dic\IT Dic\bin\Debug\NLog.dll
+D:\IT Dic\IT Dic\bin\Debug\NLog.xml
